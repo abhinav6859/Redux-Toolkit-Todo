@@ -12,10 +12,13 @@ function Todo() {
 
   const [editId, setEditId] = React.useState(null);
 const [editText, setEditText] = React.useState("");
+const [openId, setOpenId] = React.useState(null);
+
   return (
     <>
       <div className="text-2xl font-bold mt-8">Todo List</div>
       {Todos.map((todo) => (
+   
       <li
   className="
     flex justify-between items-center
@@ -35,8 +38,41 @@ const [editText, setEditText] = React.useState("");
     group-hover:translate-x-1
   "
 >
-  {todo.title}
+  {todo.description}
 </div>
+
+<button
+  onClick={() =>
+    setOpenId(openId === todo.id ? null : todo.id)
+  }
+  className="text-blue-500 text-sm hover:underline transition"
+>
+  {openId === todo.id ? "Show less ↑" : "Read more →"}
+</button>
+{openId === todo.id && (
+  <div
+    className="
+      mt-2 space-y-1
+      text-sm text-gray-700
+      animate-[fadeIn_0.25s_ease-in-out]
+    "
+  >
+    <div>
+      <span className="font-semibold">📄 Description:</span>{" "}
+      {todo.description}
+    </div>
+
+    <div>
+      <span className="font-semibold">📅 Date:</span>{" "}
+      {todo.date || "Not set"}
+    </div>
+
+    <div>
+      <span className="font-semibold">👤 Name:</span>{" "}
+      {todo.name || "Unknown"}
+    </div>
+  </div>
+)}
 
 
           <button
@@ -90,7 +126,7 @@ const [editText, setEditText] = React.useState("");
  <button
   onClick={() => {
     if (editText.trim()) {
-      dispatch(updateTodo({ id: todo.id, title: editText }));
+      dispatch(updateTodo({ id: todo.id, description: editText }));
     }
     setEditId(null);
   }}
@@ -110,7 +146,7 @@ const [editText, setEditText] = React.useState("");
  <button
   onClick={() => {
     setEditId(todo.id);
-    setEditText(todo.title);
+    setEditText(todo.description);
   }}
   className="
     bg-yellow-400 text-black
@@ -143,6 +179,7 @@ const [editText, setEditText] = React.useState("");
 </button>
 
         </li>
+   
       ))}
     </>
   );
