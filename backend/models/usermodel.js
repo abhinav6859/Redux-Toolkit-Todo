@@ -5,9 +5,12 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+          trim: true       //Removes extra spaces
     },
     date: {
         type: Date,
+      default: Date.now,
+    required: true
     
         
     },
@@ -15,7 +18,8 @@ const userSchema = new mongoose.Schema({
 
    completed: {
       type: Boolean,
-      default: false
+      default: false,
+      trim: true
     },
 
     description: {

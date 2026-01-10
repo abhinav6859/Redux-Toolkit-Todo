@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../todo/slice.js';
+import { addTodoAsync } from '../todo/slice.js';
 
 function Addtodo() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const [name, setName] = React.useState("");
 
   const addTodoHandler = (e) => {
     e.preventDefault();
-    dispatch(addTodo({ description, date, name }));
+    dispatch(addTodoAsync({ description, date, name }));
     setDescription("");
     setDate("");
     setName("");
